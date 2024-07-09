@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/templates/style.css}" rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	rel="stylesheet">
+</head>
+<style>
+.navbar {
+	background-color: transparent !important; /* Menu transparente */
+	position: relative;
+	width: 100%;
+	z-index: 1000;
+}
+
+.navbar-nav .nav-item:hover .nav-link {
+	color: rgb(34, 233, 239) !important;
+}
+
+.navbar-nav {
+	display: flex;
+	justify-content: flex-end; /* Centramos los elementos del menú */
+}
+
+.navbar-nav li {
+	margin-left: 10px; /* Espacio entre elementos */
+	margin-right: 10px; /* Reducir el margen derecho */
+}
+
+.navbar-brand {
+	position: absolute;
+	left: 20px; /* Ajustamos la posición del logo */
+	top: 10px; /* Ajustamos la posición del logo */
+}
+
+.whatsapp-icon {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	background-color: #25d366;
+	color: #fff;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 60px;
+	font-size: 40px;
+}
+
+.whatsapp-icon:hover {
+	background-color: #128c7e;
+}
+
+.promo-title, .promo-subtitle {
+	color: black;
+	text-align: center;
+	margin: 0;
+}
+
+.promo-title {
+	font-size: 24px;
+	margin-top: 50px;
+}
+
+.promo-subtitle {
+	font-size: 48px;
+	margin-bottom: 20px;
+}
+
+.card-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+
+.card-text {
+	font-size: 1rem;
+}
+
+.footer-section {
+	background-image: url('/img/fondoFooter.jpg');
+	padding: 50px 0;
+}
+
+.footer-section h3 {
+	color: black;
+	text-align: center;
+}
+
+.footer-section p {
+	color: black;
+}
+
+.footer-section img {
+	max-width: 100%;
+	height: auto;
+}
+
+.footer-section .container {
+	background-color: white;
+	padding: 50px;
+}
+
+.footer-bottom {
+	text-align: center;
+	color: black;
+	padding: 10px 0;
+}
+
+.btn-warning {
+	background-color: #ffc107;
+	border-color: #ffc107;
+	color: black;
+}
+
+.btn-warning:hover {
+	background-color: #e0a800;
+	border-color: #d39e00;
+}
+</style>
+
+<body>
+
+
+	<div style="z-index: -100; width: 100%; height: 630px;">
+		<!-- CONTENEDOR TEXTO PARA IMAGEN DE FONDO -->
+		<img alt="playa" th:src="@{/img/FondoPromo.jpg}" height="630px"
+			width="100%" style="position: absolute">
+
+		<!--------------------------------------------->
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary "
+			style="height: 105px; position: relative;">
+			<div class="container-fluid" style="width: 50%;">
+				<!-- Container LOGO -->
+				<div>
+					<a href="#"> <img alt="logo-pangea"
+						th:src="@{/img/logoPangea.png}" height="80">
+					</a>
+				</div>
+				<!--------------------------------->
+				<!-- CONTENEDOR RESTANTE -->
+				<div class="collapse navbar-collapse justify-content-end"
+					id="navbarSupportedContent" style="width: 1080px;">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0"
+						style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+						<li class="nav-item"><a class="nav-link text-white"
+							th:href="@{/inicioLogueado}">INICIO</a></li>
+						<li class="nav-item"><a class="nav-link text-white"
+							th:href="@{/nosotrosLogueado}">NOSOTROS</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/listarPromocionesLogueado}">PROMOCIONES</a></li>
+						<li class="nav-item"><a class="nav-link text-white"
+							th:href="@{/contactoLogueado}">CONTACTO</a></li>
+						<li class="nav-item"><a class="nav-link text-white"
+							th:href="@{/cartLogueado}"> <i class="fas fa-shopping-cart"></i>
+								<span id="cart-count"
+								th:text="${cart != null ? cart.size() : 0}"></span> <!-- Mostrar el número de elementos en el carrito -->
+						</a></li>
+						<li sec:authorize="isAuthenticated()" class="nav-item"><span
+							class="nav-link text-white">Bienvenido, <span
+								sec:authentication="principal.username"></span>!
+						</span></li>
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link text-white" th:href="@{/logout}">Cerrar
+								sesión</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<!-- Promociones Section -->
+	<div class="promo-section"></div>
+	<section>
+		<div class="container">
+			<h4 class="promo-title">CONOCE TODAS LAS</h4>
+			<h1 class="promo-subtitle">
+				<b>PROMOCIONES QUE TENEMOS PARA TI</b>
+			</h1>
+		</div>
+	</section>
+
+	<!-- Promociones Cards -->
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-4 mb-4" th:each="paquete : ${paquetes}">
+				<div class="card h-100">
+					<img class="card-img-top" th:src="@{${paquete.imagenPath}}"
+						alt="Imagen de la promoción">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${paquete.nombre}"></h5>
+						<p class="card-text">
+							<span th:text="${#strings.abbreviate(paquete.descripcion, 100)}"></span>...
+						</p>
+						<a th:href="@{/paquetes/detalleLogueado/{id}(id=${paquete.id})}"
+							class="btn btn-primary">Leer más</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Promocion Info Section -->
+	<section class="bg-image"
+		style="background-image: url('/img/cabaña.jpeg'); height: 650px; z-index: -1; margin-top: 40px; padding: 100px 0">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-4">
+				<div class="row p-3">
+					<div class="col-6">
+						<img alt="pareja" th:src="@{/img/pareja.jpeg}" class="img-fluid">
+					</div>
+					<div class="col-6">
+						<img alt="familia" th:src="@{/img/familia.jpeg}" class="img-fluid">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<section class="footer-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<img alt="Pangea" th:src="@{/img/logonegro.png}"
+							style="width: 90px; height: 90px">
+						<p style="text-align: justify;">Nuestra agencia de viajes -
+							Pangea Perú es confiable y nace en el año 2015 con un grupo de
+							estudiantes de turismo a través de una iniciativa que busca
+							replicar los mecanismos de viajes que se emplean en Norteamérica
+							y Europa, motivando a realizar todo tipo de travesías mediante
+							incentivos únicos que logran materializar cada viaje que se tiene
+							pensado.</p>
+					</div>
+					<div class="col-md-6">
+						<h3>
+							<b>¡Visítanos!</b>
+						</h3>
+						<img alt="mapa" th:src="@{/img/mapa.png}">
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="footer-bottom">
+			<p>Todos los Derechos Reservados: Copyright Pangea /
+				reservas@pangea.com.pe</p>
+		</div>
+	</footer>
+
+	<a
+		href="https://api.whatsapp.com/send?phone=51949927973&text=Hola%20soy%20soci%40%20de%20Pangea%2C%20quiero%20realizar%20una%20reserva."
+		class="whatsapp-icon" target="_blank"> <i class="fab fa-whatsapp"></i>
+	</a>
+
+	<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+    var formData = new FormData(this);
+
+    fetch("/pangea/submitFormulario", { // Corregir la ruta del formulario
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error('Error en la solicitud.');
+    })
+    .then(data => {
+        document.getElementById("mensaje-exito").innerText = data;
+        document.getElementById("mensaje-exito").style.display = "block";
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
+	<script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <title>REGISTRAR USUARIO</title>
+</head>
+<body>
+<div class="login-page" style="background-image: url(/img/fondoFooter.jpg);">
+    <div class="login-from-wrap">
+        <div th:if="${param.exito}">
+            <div class="alert alert-info">Se ha registrado exitosamente a la aplicación</div>
+        </div>
+        <form class="login-from" th:action="@{/registro/usuario}" th:object="${usuario}" method="post">
+            <h1 class="site-title">
+                <a href="#">
+                    <img src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-1.png" alt="">
+                </a>
+            </h1>
+            <div class="form-group">
+                <label for="nombres">Nombres</label>
+                <input type="text" id="nombres" class="form-control" name="nombres" th:field="*{nombres}" required>
+            </div>
+            <div class="form-group">
+                <label for="apellidos">Apellidos</label>
+                <input id="apellidos" type="text" class="validate" name="apellidos" th:field="*{apellidos}" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input id="correo" type="email" class="validate" name="correo" th:field="*{correo}" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input id="username" type="text" class="validate" name="username" th:field="*{username}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input id="password" type="password" class="validate" name="password" th:field="*{password}" required>
+            </div>
+            <div class="form-group">
+                <button style="width: 100%" data-mdb-ripple-init type="submit" class="button-primary">Registrar</button>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a th:href="@{/loginUsuario}" class="for-pass">Inicia Sesión</a>
+                <a th:href="@{/pangea/inicio}" class="for-pass">Volver al inicio</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+</body>
+</html>

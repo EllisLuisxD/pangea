@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <title th:text="${item.titlePage}"></title> -->
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid vh-100 d-flex justify-content-center align-items-center" style="background-image: url('/img/fondoFooter.jpg'); background-size: cover; background-position: center;">
+  <div class="card bg-light shadow-sm">
+    <div class="card-header text-center">
+      <h1 class="card-title">
+        <a href="#">
+          <img style="width: 50%; height: 50%;" src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-2-1.png" alt="Travele Logo">
+        </a>
+      </h1>
+    </div>
+    <div class="card-body">
+      <form class="login-form">
+        <div class="form-group">
+          <label for="username">Usuario</label>
+          <input type="text" class="form-control" id="username" aria-describedby="usernameHelp">
+        </div>
+        <div class="form-group">
+          <label for="password">Constraseña</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+        <div class="form-group text-center">
+          <button style="margin-top: 10px; margin-bottom: 10px;" type="submit" class="btn btn-primary btn-block">Ingresar</button>
+        </div>
+        <a href="forgot.html" class="text-muted text-center">¿Olvidaste tu contraseña?</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+  
+<script type="text/javascript" th:src="@{../mdbootstrap/js/mdb.min.js}"></script>
+</body>
+
+</html>

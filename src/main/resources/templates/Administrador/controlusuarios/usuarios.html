@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <title th:text="${item.titlePage}"></title> -->
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+
+<body>
+		<nav class="navbar navbar-expand-lg navbar-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#"> <img
+				src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-2-1.png"
+				alt="pangea">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Javier Martinez </a>
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{/edit}">Editar Perfil</a> <a
+								class="dropdown-item" href="#">Cambiar Contraseña</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" th:href="@{/pangea/inicio}">Desconectar</a>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- toda la caja de la vista Panel lateral -->
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+				<div class="sidebar-sticky">
+					<div class="dashboard-navigation">
+						<!-- menu responsive -->
+						<div id="dashboard-Navigation" class="slick-nav"></div>
+						<div id="navigation" class="navigation-container">
+							<ul class="nav flex-column">
+								<li class="nav-item active-menu"><a class="nav-link"
+									th:href="@{/dashboard}">Dashboard</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"><i
+										class="fas fa-user"></i>Usuarios</a>
+									<ul id="auth" class="nav flex-column ml-3">
+										<li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Ver
+												usuarios</a></li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/edit}">Editar
+												usuarios</a></li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/add}">Crear
+												usuarios</a></li>
+									</ul>
+								<li class="nav-item"><a class="nav-link" th:href="@{/addpaquete}">
+										Añadir paquete</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"><i
+										class="fas fa-box-archive"></i> Paquetes</a>
+									<ul class="nav flex-column ml-3">
+										<li class="nav-item"><a class="nav-link" th:href="@{/activo}">Activos</a>
+										</li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/pendiente}">Pendientes</a>
+										</li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/expirado}">Expirados</a>
+										</li>
+									</ul></li>
+								<li class="nav-item">
+								<li class="nav-item"><a class="nav-link" th:href="@{/pangea/inicio}">
+										Salir</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+			
+			<!-- Contenido principal -->
+			
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+				<div class="dashboard-content">
+					<div class="db-info-wrap db-booking">
+						<div class="dashboard-box table-opp-color-box">
+							<h4>ULTIMAS RESERVAS</h4>
+							<p>Aquí podras ver las ultimas reservas realizadas por tus
+								clientes</p>
+							<div class="table-responsive">
+								<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Usuario</th>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Telefono</th>
+                                            <th>Email</th>
+                                            <th>Pais</th>
+                                            <th>Ver</th>
+                                            <th>Editar</th>
+                                            <th>Borrar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userTableBody">
+                                        <tr>
+                                            <td><span class="list-img"><img src="/img/comment.jpg" alt=""></span>
+                                            </td>
+                                            <td>02</td>
+                                            <td><a href="#"><span class="list-name">Kathy Brown</span></a>
+                                            </td>
+                                            <td>+01 3214 6522</td>
+                                            <td>chadengle@dummy.com</td>
+                                            <td>Australia</td>
+                                                                                        <td>
+                                               
+                                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+                                                    <i class="fas fa-eye"></i>
+                                                  </button>
+                                                  </td>
+                                                  <td>
+                                                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+                                                    <i class="fas fa-edit"></i>
+                                                  </button>
+                                                  </td>
+                                                  <td>
+                                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                  </button>
+                                                                                          </td>
+                                        </tr>
+                                        <tr>
+  <td><span class="list-img"><img src="/img/comment2.jpg" alt=""></span></td>
+  <td>03</td>
+  <td><a href="#"><span class="list-name">Isabel Fernández</span></a></td>
+  <td>+52 55 1234 5678</td>
+  <td>isabel@ejemplo.mx</td>
+  <td>México</td>
+  <td>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+      <i class="fas fa-eye"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+      <i class="fas fa-edit"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+      <i class="fas fa-trash-alt"></i> 
+    </button>
+  </td>
+</tr>
+
+<tr>
+  <td><span class="list-img"><img src="/img/comment3.jpg" alt=""></span></td>
+  <td>04</td>
+  <td><a href="#"><span class="list-name">Pedro Silva</span></a></td>
+  <td>+57 310 765 4321</td>
+  <td>pedro@ejemplo.co</td>
+  <td>Colombia</td>
+  <td>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+      <i class="fas fa-eye"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+      <i class="fas fa-edit"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+      <i class="fas fa-trash-alt"></i> 
+    </button>
+  </td>
+</tr>
+
+<tr>
+  <td><span class="list-img"><img src="/img/comment4.jpg" alt=""></span></td>
+  <td>05</td>
+  <td><a href="#"><span class="list-name">Sofia Martínez</span></a></td>
+  <td>+54 11 4567 8901</td>
+  <td>sofia@ejemplo.ar</td>
+  <td>Argentina</td>
+  <td>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+      <i class="fas fa-eye"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+      <i class="fas fa-edit"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+      <i class="fas fa-trash-alt"></i> 
+    </button>
+  </td>
+</tr>
+<tr>
+  <td><span class="list-img"><img src="/img/comment5.jpg" alt=""></span></td>
+  <td>07</td>
+  <td><a href="#"><span class="list-name">Gabriela Morales</span></a></td>
+  <td>+56 9 8765 4321</td>
+  <td>gabriela@ejemplo.cl</td>
+  <td>Chile</td>
+  <td>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+      <i class="fas fa-eye"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+      <i class="fas fa-edit"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+      <i class="fas fa-trash-alt"></i> 
+    </button>
+  </td>
+</tr>
+
+
+
+<tr>
+  <td><span class="list-img"><img src="/img/comment6.jpg" alt=""></span></td>
+  <td>09</td>
+  <td><a href="#"><span class="list-name">Ana Vargas</span></a></td>
+  <td>+593 9 1234 5678</td>
+  <td>ana@ejemplo.ec</td>
+  <td>Ecuador</td>
+  <td>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal">
+      <i class="fas fa-eye"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal">
+      <i class="fas fa-edit"></i> 
+    </button>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#borrarModal">
+      <i class="fas fa-trash-alt"></i> 
+    </button>
+  </td>
+</tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			
+				</div>
+				</div>
+			
+			
+			
+			
+	  <div class="modal fade" id="verModal" tabindex="-1" role="dialog" aria-labelledby="verModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="verModalLabel">Ver Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Borrar -->
+    <div class="modal fade" id="borrarModal" tabindex="-1" role="dialog" aria-labelledby="borrarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="borrarModalLabel">Borrar Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas borrar este usuario?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Borrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let userTableBody = document.getElementById('userTableBody');
+
+            users.forEach((user, index) => {
+                let row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td><span class="list-img"><img src="/img/comment.jpg" alt=""></span></td>
+                    <td>${index + 1}</td>
+                    <td><a href="#"><span class="list-name">${user.firstname} ${user.lastname}</span></a></td>
+                    <td>${user.phone.join(', ')}</td>
+                    <td>${user.email}</td>
+                    <td>${user.country}</td>
+                    <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#verModal"><i class="fas fa-eye"></i></button></td>
+                    <td><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editarModal"><i class="fas fa-edit"></i></button></td>
+                    <td><button type="button" class="btn btn-danger btn-sm delete-btn" data-index="${index}" data-toggle="modal" data-target="#borrarModal"><i class="fas fa-trash-alt"></i></button></td>
+                `;
+
+                userTableBody.appendChild(row);
+            });
+
+            let deleteIndex;
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    deleteIndex = this.getAttribute('data-index');
+                });
+            });
+
+            document.getElementById('confirmDelete').addEventListener('click', function() {
+                users.splice(deleteIndex, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                location.reload();
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+      
+</body>
+
+</html>

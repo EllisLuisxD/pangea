@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+    <link th:href="@{/templates/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .navbar-nav .nav-item:hover .nav-link {
+            color: rgb(34, 233, 239) !important;
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .navbar-nav li {
+            margin: 0 10px;
+        }
+
+        .custom-button:last-child {
+            margin-right: 10px;
+        }
+
+        .star-rating {
+            color: #ffbb00;
+        }
+
+        .star-rating .fa-star {
+            margin-right: 5px;
+        }
+    </style>
+    <title>Detalle Paquete</title>
+</head>
+<body>
+    <div style="z-index: -100; width: 100%; height: 630px;">
+        <img alt="playa" th:src="@{/img/bannerProduct.png}" height="630px" width="100%" style="position: absolute;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary" style="height: 105px; position: relative;">
+            <div class="container-fluid" style="width: 50%;">
+                <div>
+                    <a href="#">
+                        <img alt="logo-pangea" th:src="@{/img/logoPangea.png}" height="80">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/pangea/inicio}">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/pangea/nosotros}">NOSOTROS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/paquetes/listarPromocionesLogueado}">PROMOCIONES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/pangea/contacto}">CONTACTO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/pangea/cart}">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span th:text="${cart != null ? cart.size() : 0}"></span>
+                            </a>
+                        </li>
+                        <!-- Mostrar nombre de usuario y cerrar sesión solo si está autenticado -->
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                    <span class="nav-link text-white">Bienvenido, <span sec:authentication="principal.username"></span>!</span> 
+               </li>
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                 <a class="nav-link text-white" th:href="@{/logout}">Cerrar sesión</a> 
+                </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <section class="mb-5"></section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img id="paquete-imagen" alt="Imagen del paquete" th:src="@{${paquete.imagenPath}}" class="img-fluid mb-3">
+                </div>
+                <div class="col-md-6">
+                    <h2 id="paquete-nombre" class="mb-2" style="text-align: center;"><b th:text="${paquete.nombre}">Nombre del Paquete</b></h2>
+                    <div class="d-flex justify-content-center star-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4 id="paquete-precio" style="text-align: center; padding-top: 20px;">Precio: <span th:text="${paquete.precioOferta}">Precio Oferta</span></h4>
+                    <h5 id="paquete-precio-regular" style="text-align: center; padding-top: 10px;">Precio Regular: <span th:text="${paquete.precioRegular}">Precio Regular</span></h5>
+                    <h5 id="paquete-descuento" style="text-align: center; padding-top: 10px;">Descuento: <span th:text="${paquete.descuento}">Descuento</span></h5>
+                    <h5 id="paquete-vencimiento" style="text-align: center; padding-top: 10px;">Fecha de Vencimiento: <span th:text="${paquete.diaVencimiento} + '-' + ${paquete.mesVencimiento} + '-' + ${paquete.anioVencimiento}">Fecha de Vencimiento</span></h5>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary me-2 custom-button add-to-cart" th:data-id="${paquete.id}">Agregar al carrito</button>
+                    </div>
+                    <p id="paquete-descripcion" class="mb-4" style="text-align: justify; padding-top: 20px;" th:text="${paquete.descripcion}">Descripción del Paquete</p>
+                    <div th:utext="${paquete.codigoEmbebido}"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <h2 style="text-align: center; padding-top: 50px;"><b>Otros paquetes de viajes</b></h2>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="paquete : ${paquetes}">
+                <div class="card h-100">
+                    <img class="card-img-top" th:src="@{${paquete.imagenPath}}" alt="Imagen de la promoción">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${paquete.nombre}"></h5>
+                        <p class="card-text">
+                            <span th:text="${#strings.abbreviate(paquete.descripcion, 100)}"></span>...
+                        </p>
+                        <a th:href="@{/paquetes/detalle/{id}(id=${paquete.id})}" class="btn btn-primary">Leer más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount();
+
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const paquete = {
+                        id: button.getAttribute('data-id'),
+                        nombre: document.getElementById('paquete-nombre').innerText,
+                        precio: document.getElementById('paquete-precio').innerText.replace('Precio: $', ''),
+                        descripcion: document.getElementById('paquete-descripcion').innerText,
+                        imagen: document.getElementById('paquete-imagen').src
+                    };
+                    addToCart(paquete);
+                });
+            });
+
+            function addToCart(paquete) {
+                cart.push(paquete);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+
+                // Enviar paquete al backend usando AJAX
+                fetch('/pangea/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paquete)
+                }).then(response => {
+                    if (response.ok) {
+                        console.log('Paquete agregado al carrito');
+                    } else {
+                        console.error('Error al agregar el paquete al carrito');
+                    }
+                });
+            }
+
+            function updateCartCount() {
+                const cartCount = document.querySelector('.fa-shopping-cart + span');
+                cartCount.textContent = cart.length;
+            }
+        });
+    </script>
+
+    <footer>
+        <section class="mb-5" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px;">
+            <div class="container">
+                <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px;">
+                    <div class="col-md-6">
+                        <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px;">
+                        <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 style="color:black; text-align: center;"><b>¡Visítanos!</b></h3>
+                        <img alt="mapa" th:src="@{/img/mapa.png}">
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img alt="pie" th:src="@{/img/pie.png}">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div>
+            <p style="color:black; text-align: center;">Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<style>
+.login-page {
+    background-image: url('/img/fondoFooter.jpg');
+    background-size: cover; /* Ajustar la imagen al tamaño completo */
+    background-position: center; /* Centrar la imagen */
+    background-repeat: no-repeat; /* Evitar que la imagen se repita */
+}
+
+.invalid-feedback {
+    display: none; /* Inicialmente oculto */
+    color: red;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    z-index: 10;
+}
+</style>
+<body>
+<div class="login-page" th:attr="data-dashboard-url=@{/dashboard}">
+    <div class="login-form-wrap">
+        <form id="loginForm" method="POST" action="/login" novalidate>
+            <h1 class="text-center">
+                <a href="#">
+                    <img th:src="@{/img/pangea_nosotros.png}" alt="">
+                </a>
+            </h1>
+            <h3 style="text-align: center">Iniciar Sesión Administrador</h3>
+            <div class="form-group" style="position: relative;">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" class="form-control" name="username" required>
+                <div class="invalid-feedback" id="usernameError">Por favor, ingrese su usuario.</div>
+            </div>
+            <div class="form-group" style="position: relative;">
+                <label for="password">Contraseña</label>
+                <input id="password" type="password" class="validate form-control" name="password" required minlength="6">
+                <div class="invalid-feedback" id="passwordError">Contraseña incorrecta.</div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button-primary btn btn-primary"><a style="color: white" th:href="@{/dashboard}">INGRESAR</a></button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a th:href="@{/pangea/inicio}" class="for-pass">Volver al inicio</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{../mdbootstrap/js/mdb.min.js}"></script>
+</body>
+</html>

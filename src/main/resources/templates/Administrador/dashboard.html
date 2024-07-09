@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <title th:text="${item.titlePage}"></title> -->
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#"> <img
+				src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-2-1.png"
+				alt="pangea">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+							<a style="color: white" class="dropdown-item" th:href="@{/}">Desconectar</a>
+						</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- toda la caja de la vista Panel lateral -->
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+				<div class="sidebar-sticky">
+					<div class="dashboard-navigation">
+						<!-- menu responsive -->
+						<div id="dashboard-Navigation" class="slick-nav"></div>
+						<div id="navigation" class="navigation-container">
+							<ul class="nav flex-column">
+								<li class="nav-item active-menu"><a class="nav-link"
+									th:href="@{/dashboard}">Dashboard</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"><i
+										class="fas fa-user"></i>Usuarios</a>
+									<ul id="auth" class="nav flex-column ml-3">
+										<li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Ver
+												usuarios</a></li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/edit}">Editar
+												usuarios</a></li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/add}">Crear
+												usuarios</a></li>
+									</ul>
+								<li class="nav-item"><a class="nav-link" th:href="@{/addpaquete}">
+										Añadir paquete</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"><i
+										class="fas fa-box-archive"></i> Paquetes</a>
+									<ul class="nav flex-column ml-3">
+										<li class="nav-item"><a class="nav-link" th:href="@{/activo}">Activos</a>
+										</li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/pendiente}">Pendientes</a>
+										</li>
+										<li class="nav-item"><a class="nav-link" th:href="@{/expirado}">Expirados</a>
+										</li>
+									</ul></li>
+								<li class="nav-item">
+								<li class="nav-item"><a class="nav-link" th:href="@{/login}">
+										Salir</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+			
+			
+			
+			<!-- Contenido principal -->
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+				<div class="dashboard-content">
+					<!-- Aquí colocar el contenido principal -->
+					<div class="db-info-wrap db-booking">
+						<div class="dashboard-box table-opp-color-box">
+							<h4>ULTIMAS RESERVAS</h4>
+							<p>Aquí podras ver las ultimas reservas realizadas por tus
+								clientes</p>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Usuario</th>
+											<th>Fecha</th>
+											<th>Destino</th>
+											<th>Id</th>
+											<th>Estado</th>
+											<th>Personas</th>
+											<th>Precio</th>
+											<th>Acción</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment.jpg" alt=""> </span> <span
+												class="list-enq-name">Juan Pérez</span></td>
+											<td>12 May</td>
+											<td>Japan</td>
+											<td>1234</td>
+											<td><span class="note note-success">Aprobado</span></td>
+											<td><span class="note note-success">3</span></td>
+											<td><span class="note note-success">$ 1850.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment2.jpg" alt=""> </span> <span
+												class="list-enq-name">María García</span></td>
+											<td>12 May</td>
+											<td>France</td>
+											<td>5678</td>
+											<td><span class="note note-danger">Rechazado</span></td>
+											<td><span class="note note-danger">2</span></td>
+											<td><span class="note note-danger">$ 2350.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment3.jpg" alt=""> </span> <span
+												class="list-enq-name">Pedro Rodríguez</span></td>
+											<td>12 May</td>
+											<td>Italy</td>
+											<td>9012</td>
+											<td><span class="note note-success">Aprobado</span></td>
+											<td><span class="note note-success">5</span></td>
+											<td><span class="note note-success">$ 1500.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment4.jpg" alt=""> </span> <span
+												class="list-enq-name">Ana Lópe</span></td>
+											<td>12 May</td>
+											<td>Spain</td>
+											<td>3456</td>
+											<td><span class="note note-warning">Pendiente</span></td>
+											<td><span class="note note-warning">4</span></td>
+											<td><span class="note note-warning">$ 2800.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment5.jpg" alt=""> </span> <span
+												class="list-enq-name">Carlos Sánchez</span></td>
+											<td>12 May</td>
+											<td>Thailand</td>
+											<td>7890</td>
+											<td><span class="note note-success">Aprobado</span></td>
+											<td><span class="note note-success">6</span></td>
+											<td><span class="note note-success">$ 2800.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+
+										<tr>
+											<td><span class="list-img"><img
+													src="/img/comment4.jpg" alt=""> </span> <span
+												class="list-enq-name">Horacio Martinez</span></td>
+											<td>12 May</td>
+											<td>Barcelona, Spain</td>
+											<td>6789</td>
+											<td><span class="note note-warning">Pendiente</span></td>
+											<td><span class="note note-warning">3</span></td>
+											<td><span class="note note-warning">$ 2500.00</span></td>
+											<td>
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fas fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+</body>
+
+</html>

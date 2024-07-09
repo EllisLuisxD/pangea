@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:import="org.springframework.validation.BindingResult">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/templates/style.css}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<style>
+    /* Estilo personalizado para cambiar el color del texto al pasar el mouse */
+    .navbar-nav .nav-item:hover .nav-link {
+  color: rgb(34,233,239) !important;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: flex-end; /* Alinear los elementos al final del contenedor */
+}
+
+.navbar-nav li {
+    margin-left: 10px; /* Espacio entre elementos */
+    margin-right: 10px; /* Reducir el margen derecho */
+}
+.whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25d366;
+            color: #fff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            text-align: center;
+            align-content: center;
+            line-height: 80px;
+            font-size: 50px;
+        }
+
+.whatsapp-icon:hover {
+            background-color: #128c7e;
+        }
+
+  </style>
+<body>
+<!-- DIV PARA LA IMAGEN DE FONDO DE PLAYA -->
+<div style="z-index: -100;width: 100%;height: 630px;">
+	<!-- CONTENEDOR TEXTO PARA IMAGEN DE FONDO -->
+	<img alt="playa" th:src="@{/img/FondoContacto.jpg}" height="630px" width="100%" style="position: absolute">
+	
+<!--------------------------------------------->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 105px;position: relative;">
+  <div class="container-fluid" style="width: 50%;">
+  	<!-- Container LOGO -->
+    <div>
+    	<a href="#">
+    		<img alt="logo-pangea" th:src="@{/img/logoPangea.png}"
+          	height="80">
+    	</a>
+    </div>
+    <!--------------------------------->
+    <!-- CONTENEDOR RESTANTE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/}">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/nosotros}">NOSOTROS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/paquetes/listarPromociones}">PROMOCIONES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/contacto}">CONTACTO</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/cart}">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" th:text="${cart != null ? cart.size() : 0}"></span> <!-- Mostrar el número de elementos en el carrito -->
+          </a>
+        </li>
+        <li class="nav-item" style="display: inline-block;">
+    	  <a class="nav-link text-white" th:href="@{/login}">INICIA SESIÓN</a>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- --------------------------------------------- -->
+
+<section style="background-image: url('/img/fondoContacto2.jpg'); padding-top: 0px; padding-left: 100px; padding-right: 100px; padding-bottom: 100px">
+    <div>
+        <form action="https://formsubmit.co/luisforever06@gmail.com" method="post" style="background-color: white; padding: 50px" th:object="${contactForm}">
+            <div style="border-bottom: 1px solid #ced4da;">
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" style="border: 0; border-bottom: 1px solid #ced4da;">
+            </div>
+            <div style="padding-top: 40px; border-bottom: 1px solid #ced4da;">
+                <input type="email" class="form-control" placeholder="Email" name="email" style="border: 0; border-bottom: 1px solid #ced4da;">
+            </div>
+            <div style="padding-top: 40px; border-bottom: 1px solid #ced4da;">
+                <input type="tel" class="form-control" placeholder="Teléfono" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" name="telefono" style="border: 0; border-bottom: 1px solid #ced4da;">
+            </div>
+            <div style="padding-top: 40px; border-bottom: 1px solid #ced4da;">
+                <textarea class="form-control" placeholder="Déjanos un mensaje" name="mensaje" style="border: 0; border-bottom: 1px solid #ced4da; height: 150px;"></textarea>
+            </div>
+            <div style="padding-top: 40px">
+                <a th:href="@{/pangea/submitFormulario}"><button type="submit" class="btn btn-primary">Enviar</button></a>
+            </div>
+            <div id="mensaje-exito" style="display: none;"></div>
+        </form>
+    </div>
+    
+    <section style="background-color: #32B2FD">
+    <div class="text-center" style="padding-top: 30px;">
+            <a href="https://web.facebook.com/pangea.com.pe/">
+                <img alt="facebook" th:src="@{/img/colorfacebook.png}" style="max-width: 50%;">
+            </a>
+            <a href="https://www.instagram.com/pangeaperu_vip/">
+                <img alt="instagram" th:src="@{/img/colorinstagram.png}" style="max-width: 50%; margin-left: 10px;">
+            </a>
+        </div>
+   		<div class="d-flex align-items-center" style="padding-left: 50px; padding-top: 20px">
+            <img alt="localizacion" th:src="@{/img/localizacion.jpg}" style="max-width: 100px;">
+            <p style="color: white; margin-left: 10px; padding-top: 10px;">Calle German Schreiber 227, oficina 702 - San Isidro</p>
+        </div>
+        <div class="d-flex align-items-center" style="padding-left: 50px; padding-top: 20px">
+            <img alt="email" th:src="@{/img/email.jpg}" style="max-width: 100px;">
+            <a href="mailto:reservas@pangea.com.pe" style="color: white; margin-left: 10px; padding-top: 10px;">reservas@pangea.com.pe</a>
+        </div>
+        <div class="d-flex align-items-center" style="padding-left: 50px; padding-top: 20px;  padding-bottom: 50px;">
+            <img alt="tel" th:src="@{/img/tel.jpg}" style="max-width: 100px;">
+            <a href="tel:766-8997" style="color: white; margin-left: 10px; padding-top: 10px;">766-8997</a>
+        </div>
+        
+    </section>
+</section>
+<!-- ---------------------------------------------------------------------- -->
+<a href="https://api.whatsapp.com/send?phone=51949927973&text=Hola%20soy%20soci%40%20de%20Pangea%2C%20quiero%20realizar%20una%20reserva." class="whatsapp-icon" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+<!-- ----------------------------------------------------------------------- -->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+    var formData = new FormData(this);
+
+    fetch("/pangea/submitFormulario", { // Corregir la ruta del formulario
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error('Error en la solicitud.');
+    })
+    .then(data => {
+        document.getElementById("mensaje-exito").innerText = data;
+        document.getElementById("mensaje-exito").style.display = "block";
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
+
+</body>
+
+<footer>
+    <section class="mb-5" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px">
+        <div class="container">
+            <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px">
+                <div class="col-md-6">
+                    <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px">
+                    <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                </div>
+                <div class="col-md-6">
+                	<h3 style="color:black; text-align: center"><b>¡Visítanos!</b></h3>
+                   	<img alt="mapa" th:src="@{/img/mapa.png}">
+                </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+		    <img alt="pie" th:src="@{/img/pie.png}">
+			</div>
+        </div>
+        </div>
+    </section>
+    <div> <p style="color:black; text-align: center"> Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe </p></div>
+</footer>
+</html>

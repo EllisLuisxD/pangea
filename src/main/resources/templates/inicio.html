@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/templates/style.css}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<style>
+    /* Estilo personalizado para cambiar el color del texto al pasar el mouse */
+    .navbar-nav .nav-item:hover .nav-link {
+  color: rgb(34,233,239) !important;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: flex-end; /* Alinear los elementos al final del contenedor */
+}
+
+.navbar-nav li {
+    margin-left: 10px; /* Espacio entre elementos */
+    margin-right: 10px; /* Reducir el margen derecho */
+}
+
+.whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25d366;
+            color: #fff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            text-align: center;
+            align-content: center;
+            line-height: 80px;
+            font-size: 50px;
+        }
+
+.whatsapp-icon:hover {
+            background-color: #128c7e;
+        }
+  </style>
+<body>
+<!-- DIV PARA LA IMAGEN DE FONDO DE PLAYA -->
+<div style="z-index: -100;width: 100%;height: 630px;">
+	<!-- CONTENEDOR TEXTO PARA IMAGEN DE FONDO -->
+	<img alt="playa" th:src="@{/img/playa2.jpg}" height="630px" width="100%" style="position: absolute">
+	
+<!--------------------------------------------->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 105px;position: relative;">
+  <div class="container-fluid" style="width: 50%;">
+  	<!-- Container LOGO -->
+    <div>
+    	<a href="#">
+    		<img alt="logo-pangea" th:src="@{/img/logoPangea.png}"
+          	height="80">
+    	</a>
+    </div>
+    <!--------------------------------->
+    <!-- CONTENEDOR RESTANTE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/}">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/nosotros}">NOSOTROS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/paquetes/listarPromociones}">PROMOCIONES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/contacto}">CONTACTO</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/pangea/cart}">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" th:text="${cart != null ? cart.size() : 0}"></span> <!-- Mostrar el número de elementos en el carrito -->
+          </a>
+        </li>
+        <li class="nav-item" style="display: inline-block;">
+    	  <a class="nav-link text-white" th:href="@{/login}">INICIA SESIÓN</a>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+	<section>
+		<div>
+			<h4 style="text-align: center; padding-top: 50px;">NUESTROS DESTINOS</h4>
+		</div>
+		<div>
+			<h1 style="text-align: center; padding-top: 5px; padding-bottom: 50px"> <b>MÁS VISITADOS</b></h1>
+		</div>
+	</section>
+	
+	<section>
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4">
+		            <img alt="cartagena" th:src="@{/img/cartagena.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"> <b>Una joya del patrimonio universal</b></h6>
+		            <p class="mb-4">Cartagena es una ciudad que está ubicada a orillas del Mar Caribe. Sus calles coloridas la hacen especial.</p>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="sevilla" th:src="@{/img/sevilla.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"> <b>Una ciudad hermosa llena de magia </b></h6>
+		            <p class="mb-4">Sevilla, junto con Córdoba y Granada, es una de las tres ciudades más famosas de Andalucía.</p>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="cancun" th:src="@{/img/cancun.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"><b>Playas inolvidables con sabor caribeño</b></h6>
+		            <p class="mb-4">Además de tener las mejores playas del mundo, en Cancún disfrutas de excitantes y entretenidas aventuras.</p>
+		        </div>
+		    </div>
+		</div>
+		
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4">
+		            <img alt="playaCarmen" th:src="@{/img/playaCarmen.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"> <b>Conocida como la famosa Rivera Maya</b></h6>
+		            <p class="mb-4">En Playa del Carmen hay actividades para todos los públicos, como la visita al Acuario y muchos otros.</p>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="machuPicchu" th:src="@{/img/MachuPicchu.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"> <b>Historia, belleza y cultura en un solo lugar</b></h6>
+		            <p class="mb-4">Cuzco es una ciudad de los Andes peruanos que fue la capital del Imperio Inca.</p>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="iquitos" th:src="@{/img/iquitos.jpg}" class="img-fluid mb-3">
+		            <h6 class="mb-2"><b>Unos días por la selva profunda</b></h6>
+		            <p class="mb-4">Además de contar con impresionantes destinos, es el principal punto de partida para conocer la hermosa selva peruana.</p>
+		        </div>
+		    </div>
+		</div>
+	</section>
+	
+	<section><img alt="banner" th:src="@{/img/banner1.jpg}" style="z-index: 1; width: 100%; height: 80%"></section>
+	
+	<!-- Espacio entre secciones -->
+    <section class="mb-5"></section>
+    
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h6>Pangea Perú</h6>
+					<h2>Es Confiable?</h2>
+					<p style="text-align: justify;">Pangea Perú es una Agencia de Viajes y Turismo que tiene como misión es promover constantemente el turismo receptivo y emisivo, obteniendo como resultado que la mayoría de familias peruanas veamos el turismo como un hábito y no como un lujo ocasional.
+		
+		Nuestra visión es lograr que los peruanos seamos reconocidos mundialmente como un “público viajero” de forma confiable y segura.</p>
+					
+					<button type="button" class="btn btn-primary">Más sobre Pangea</button>
+				</div>
+				
+				<div class="col-md-8">
+					<div class="d-flex justify-content-center">
+						<img alt="colores" th:src="@{/img/7colores.jpg}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Espacio entre secciones -->
+    <section class="mb-5"></section>
+    
+	<section>
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4">
+		        <div class="d-flex justify-content-center">
+		            <img alt="destinos" th:src="@{/img/logoDestinos.png}" class="img-fluid mb-3" style="align-content: center; width: 60px; height: 60px">
+		        </div>
+		        <div class="d-flex justify-content-center">
+		            <h6 class="mb-2"> <b>Destinos exóticos</b></h6>
+		         </div>
+		            <p class="mb-4">Contamos con promociones para destinos tan paradisíacos que debes conocer aunque sea una vez en tu vida.</p>
+		        </div>
+		        
+		        <div class="col-md-4">
+		        <div class="d-flex justify-content-center">
+		            <img alt="Relajacion" th:src="@{/img/logoRelajacion.png}" class="img-fluid mb-3" style="align-content: center; width: 60px; height: 60px">
+		        </div>
+		        <div class="d-flex justify-content-center">
+		            <h6 class="mb-2"> <b>Relajación </b></h6>
+		        </div>
+		            <p class="mb-4">Hoteles 5 estrellas, playas únicas, cruceros y resorts de lujo son algunas de las cosas que tenemos para ti.</p>
+		        </div>
+		        
+		        <div class="col-md-4">
+		        <div class="d-flex justify-content-center">
+		            <img alt="aventuras" th:src="@{/img/logoAventuras.png}" class="img-fluid mb-3" style="align-content: center; width: 60px; height: 60px">
+		        </div>
+		        <div class="d-flex justify-content-center">
+		            <h6 class="mb-2"><b>Aventuras</b></h6>
+		        </div>
+		            <p class="mb-4">Estamos para apoyar ese espíritu aventurero que todos llevamos dentro lleno de historias y anécdotas.</p>
+		        </div>
+		    </div>
+		</div>	
+	</section>
+
+	<!-- Espacio entre secciones -->
+    <section class="mb-5"></section>
+    
+    <section>
+    	<img alt="banner" th:src="@{/img/banner2.jpg}" style="z-index: 1; width: 100%; height: 80%">
+    </section>
+
+	<!-- Espacio entre secciones -->
+    <section class="mb-5"></section>
+	
+	<section>
+		<div>
+			<h4 style="text-align: center; padding-top: 50px;">ALGUNAS DE NUESTRAS</h4>
+		</div>
+		<div>
+			<h1 style="text-align: center; padding-top: 5px; padding-bottom: 50px"> <b>Promociones</b></h1>
+		</div>
+	</section>
+	
+	<section>
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-4">
+		            <img alt="Caribecartagena" th:src="@{/img/CaribeCartagena.jpg}" class="img-fluid mb-3">
+		            <div class="d-flex justify-content-center">
+						<a th:href="@{/pangea/cartagena}">
+    						<button type="button" class="btn btn-primary">Ver Paquete</button>
+  						</a>
+					</div>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="CaribeBarraquilla" th:src="@{/img/CaribeBarranquilla.jpg}" class="img-fluid mb-3">
+		            <div class="d-flex justify-content-center">
+						<a th:href="@{/pangea/barranquilla}">
+    						<button type="button" class="btn btn-primary">Ver Paquete</button>
+  						</a>
+  					</div>
+		        </div>
+		        <div class="col-md-4">
+		            <img alt="SantaMarta" th:src="@{/img/SantaMarta.jpg}" class="img-fluid mb-3">
+		            <div class="d-flex justify-content-center">
+						<a th:href="@{/pangea/santaMarta}">
+    						<button type="button" class="btn btn-primary">Ver Paquete</button>
+  						</a>
+  					</div>
+		        </div>
+		    </div>
+		</div>
+	</section>
+	
+	<!-- Espacio entre secciones -->
+    <section class="mb-5"></section>
+    
+	<section>
+		<div>
+			<h4 style="text-align: center; padding-top: 50px;">¿QUÉ ESPERAS?</h4>
+		</div>
+		<div>
+			<h1 style="text-align: center; padding-top: 5px; padding-bottom: 50px"> <b>¡Únete y disfruta!</b></h1>
+		</div>
+	</section>
+	
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="clientes1" th:src="@{/img/clientes1.jpg}" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img alt="clientes2" th:src="@{/img/clientes2.jpg}" class="img-fluid mb-3">
+            </div>
+            <div class="col-md-4">
+                <img alt="clientes3" th:src="@{/img/clientes3.jpg}" class="img-fluid mb-3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Espacio entre secciones -->
+<section class="mb-5"></section>
+
+<section style="background-image: url('/img/fondo0.jpg');">
+    <div class="container" style="padding-top: 50px; padding-bottom: 50px">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 style="color:white; text-align: center"><b>Contáctanos</b></h2>
+                <p style="text-align: justify; color: white">Nuestros asesores estarán disponibles para aclarar todas tus dudas y demostrar que Pangea Perú es confiable, no lo pienses más programa tu aventura hoy mismo.</p>
+                <div class="d-flex align-items-center">
+                    <img alt="localizacion" th:src="@{/img/localizacion.jpg}" style="max-width: 100px;">
+                    <p style="color: white; margin-left: 10px; padding-top: 10px;">Calle German Schreiber 227, oficina 702 - San Isidro</p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <img alt="email" th:src="@{/img/email.jpg}" style="max-width: 100px;">
+                    <a href="mailto:reservas@pangea.com.pe" style="color: white; margin-left: 10px; padding-top: 10px;">reservas@pangea.com.pe</a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <img alt="tel" th:src="@{/img/tel.jpg}" style="max-width: 100px;">
+                    <a href="tel:766-8997" style="color: white; margin-left: 10px; padding-top: 10px;">766-8997</a>
+                </div>
+                <div class="text-center" style="padding-top: 30px;">
+                    <a href="https://web.facebook.com/pangea.com.pe/">
+                        <img alt="facebook" th:src="@{/img/facebook1.jpg}" style="max-width: 50%;">
+                    </a>
+                    <a href="https://www.instagram.com/pangeaperu_vip/">
+                        <img alt="instagram" th:src="@{/img/instagram1.jpg}" style="max-width: 50%; margin-left: 10px;">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <h3 style="color:white; text-align: center"><b>¡Reserva tu viaje hoy!</b></h3>
+                </div>
+	                <form action="https://formsubmit.co/luisforever06@gmail.com" method="post" style="padding-top: 30px; padding-left: 30px">
+				    <div class="row">
+				        <div class="col">
+				            <input type="text" class="form-control" placeholder="Nombre" name="nombre">
+				        </div>
+				        <div class="col">
+				            <input type="email" class="form-control" placeholder="Email" name="email">
+				        </div>
+				    </div>
+				    <div class="row" style="padding-top: 20px">
+				        <div class="col">
+				            <input type="tel" class="form-control" placeholder="Teléfono" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" name="telefono">
+				        </div>
+				        <div class="col">
+				            <input type="text" class="form-control" placeholder="Asunto" name="asunto">
+				        </div>
+				    </div>
+				    <div style="padding-top: 20px">
+				        <textarea class="form-control" placeholder="Déjanos un mensaje" name="mensaje"></textarea>
+				    </div>
+				    <div style="padding-top: 20px">
+				        <button type="submit" class="btn btn-primary">Enviar</button>
+				    </div>
+				    <div id="mensaje-exito" style="display: none;"></div>
+				</form>
+            </div>
+        </div>
+    </div>
+</section>
+<a href="https://api.whatsapp.com/send?phone=51949927973&text=Hola%20soy%20soci%40%20de%20Pangea%2C%20quiero%20realizar%20una%20reserva." class="whatsapp-icon" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+    var formData = new FormData(this);
+
+    fetch("/pangea/submitFormulario", { // Corregir la ruta del formulario
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error('Error en la solicitud.');
+    })
+    .then(data => {
+        document.getElementById("mensaje-exito").innerText = data;
+        document.getElementById("mensaje-exito").style.display = "block";
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
+    
+</body>
+
+<footer>
+    <section class="mb-5" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px">
+        <div class="container">
+            <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px">
+                <div class="col-md-6">
+                    <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px">
+                    <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                </div>
+                <div class="col-md-6">
+                	<h3 style="color:black; text-align: center"><b>¡Visítanos!</b></h3>
+                   	<img alt="mapa" th:src="@{/img/mapa.png}">
+                </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+		    <img alt="pie" th:src="@{/img/pie.png}">
+			</div>
+        </div>
+        </div>
+    </section>
+    <div> <p style="color:black; text-align: center"> Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe </p></div>
+</footer>
+</html>

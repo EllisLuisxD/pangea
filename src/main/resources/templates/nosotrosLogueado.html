@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/templates/style.css}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<style>
+    /* Estilo personalizado para cambiar el color del texto al pasar el mouse */
+    .navbar-nav .nav-item:hover .nav-link {
+  color: rgb(34,233,239) !important;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: flex-end; /* Alinear los elementos al final del contenedor */
+}
+
+.navbar-nav li {
+    margin-left: 10px; /* Espacio entre elementos */
+    margin-right: 10px; /* Reducir el margen derecho */
+    
+
+}
+.whatsapp-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25d366;
+            color: #fff;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            text-align: center;
+            align-content: center;
+            line-height: 80px;
+            font-size: 50px;
+        }
+
+.whatsapp-icon:hover {
+            background-color: #128c7e;
+        }
+  </style>
+<body>
+<!-- DIV PARA LA IMAGEN DE FONDO DE PLAYA -->
+<div style="z-index: -100;width: 100%;height: 630px;">
+	<!-- CONTENEDOR TEXTO PARA IMAGEN DE FONDO -->
+	<img alt="playa" th:src="@{/img/FondoNosotros.jpg}" height="630px" width="100%" style="position: absolute">
+	
+<!--------------------------------------------->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 105px;position: relative;">
+  <div class="container-fluid" style="width: 50%;">
+  	<!-- Container LOGO -->
+    <div>
+    	<a href="#">
+    		<img alt="logo-pangea" th:src="@{/img/logoPangea.png}"
+          	height="80">
+    	</a>
+    </div>
+    <!--------------------------------->
+    <!-- CONTENEDOR RESTANTE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/inicioLogueado}">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/nosotrosLogueado}">NOSOTROS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/paquetes/listarPromocionesLogueado}">PROMOCIONES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/contactoLogueado}">CONTACTO</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/cartLogueado}">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" th:text="${cart != null ? cart.size() : 0}"></span> <!-- Mostrar el número de elementos en el carrito -->
+          </a>
+        </li>
+           <!-- Mostrar nombre de usuario y cerrar sesión solo si está autenticado -->
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                    <span class="nav-link text-white">Bienvenido, <span sec:authentication="principal.username"></span>!</span> 
+               </li>
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                 <a class="nav-link text-white" th:href="@{/logout}">Cerrar sesión</a> 
+                </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<!-- --------------------------------------------- -->
+
+<section>
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-md-4 p-4">
+				<div class="col">
+					<h2 style="font-weight: bolder">IMPULSANDO EL TURISMO DESDE EL 2015</h2>
+				</div>
+				<div class="col">
+					<p class="h7" style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable, y nace en el año 2015 con un grupo de estudiantes de turismo a través 
+					de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo 
+					tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.
+					<br>
+					<br>
+					   Esta portentosa iniciativa tomó el nombre de PANGEA haciendo referencia a la época en la que, hace más de 300 millones 
+					   de años, todos los continentes estaban unidos y era posible recorrer toda la superficie sólida del mundo incluso caminando. 
+					   Por supuesto, el nombre era en alusión a lo sencillo que este mecanismo tornaba la práctica de viajar y conocer todos los 
+					   continentes del mundo.
+					<br>
+					<br>
+					Este movimiento fue creciendo y en el año 2017 se decidió constituir Pangea como una empresa formal, logrando así alcanzar una 
+					mayor cantidad de clientes y tener una gran acogida entre el público peruano.</p>
+				</div>
+				<div class="row mt-4">
+					<div class="col d-flex">
+						<img alt="pangea_nosotros" th:src="@{/img/pangea_nosotros.png}" width="20%"  >
+						<div style="width: 100%; padding-left: 20px;margin-top: auto; margin-bottom: auto">
+							<h6>Pangea Perú - Agencia de Viajes</h6>
+							<p class="h7" style="margin: 0">El mundo en tus manos.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6" style="display: flex; align-items: center;">
+				<div class="row align-items-center">
+					<div class="col">
+						<img alt="destinos" th:src="@{/img/destinos-1.jpg}" width="100%" height="auto">
+					</div>
+					<div class="col">
+						<img alt="machupicchu" th:src="@{/img/machu_picchu.jpg}" width="100%" height="auto">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ---------------------------------------------------------------------------------- -->
+
+
+<section>
+	<div class="container mt-3">
+		<div class="row justify-content-center">
+			<div class="col-md-4 d-flex flex-column align-items-center" style="padding: 10px; margin: 10px 50px">
+				<img alt="mision" th:src="@{/img/mision-cumplida.png}" width="30%">
+				<br>
+				<p style="text-align: justify;">Nuestra <strong>misión</strong> es promover de forma confiable constantemente el turismo receptivo y emisivo, obteniendo como resultado que 
+				la mayoría de familias peruanas veamos el turismo como un hábito y no como un lujo ocasional.</p>
+			</div>
+			<div class="col-md-4 d-flex flex-column align-items-center" style="padding: 10px; margin: 21px 50px">
+				<img alt="vision" th:src="@{/img/vision.png}" width="30%">
+				<br>
+				<p style="text-align: justify;">Nuestra <strong>visión</strong> es lograr que los peruanos seamos reconocidos mundialmente como un “público viajero” y gracias a ello 
+				convertirnos en la mejor agencia de viajes de Lima y porque no, del Perú.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- --------------------------------------------- --------------------------------->
+
+<section>
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-md-4 d-flex flex-column justify-content-center" style="padding: 30px">
+				<p style="font-weight: bolder; font-size: 45px">¿Por que elegir Pangea Perú?</p>
+				<p style="text-align: justify;">Pangea Perú es una agencia de viajes confiable que se enfoca principalmente en el cliente, nuestra intención es la de impulsar 
+				el turismo nacional, logrando atraer extranjeros a que conozcan las maravillas inigualables que tiene el Perú para ofrecer y que 
+				se enamoren de nuestro país, así como también incentivar a los peruanos hacia una cultura viajera y no se pierdan de la maravilla 
+				de viajar.</p>
+				<img alt="banner-porque-elegir" th:src="@{/img/banner-1.jpg}" width="100%">
+			</div>
+			<div class="col-md-6 d-flex justify-content-center" style="padding: 10px;">
+				<img alt="viaje4" th:src="@{/img/viaje4.jpg}" width="75%">
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ----------------------------------------------------------------------------------------- -->
+
+<section>
+	<div class="bg-image" style="background-image: url('/img/playa_azul.jpeg'); height: 350px; z-index: -1; margin-top: 40px; padding: 100px 0px">
+		<div class="container">
+			<div class="row text-white text-center">
+				<div class="col">
+					<p style="font-size: 50px; font-weight: bolder">1,850</p>
+					<p style="font-size: 17px;">TOURS REALIZADOS</p>
+				</div>
+				<div class="col">
+					<p style="font-size: 50px; font-weight: bolder">68</p>
+					<p style="font-size: 17px;">ASESORES</p>
+				</div>
+				<div class="col">
+					<p style="font-size: 50px; font-weight: bolder">+7</p>
+					<p style="font-size: 17px;">AÑOS DE EXPERIENCIA</p>
+				</div>
+				<div class="col">
+					<p style="font-size: 50px; font-weight: bolder">+100</p>
+					<p style="font-size: 17px;">DESTINOS DISPONIBLES</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br>
+<br>
+<!-- ------------------------------------------------------------------------------------------------------- -->
+<!-- SECCION 1 -->
+<section>
+	<div class="container">	
+		<div class="row">
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="CRUCERO" th:src="@{/img/crucero.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>CRUCEROS</h4>
+					<p>Contamos con los mejores paquetes que incluyen viajes en cruceros de lujo y más.</p>
+					<button type="button" class="btn btn-info" data-mdb-ripple-init style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="CRUCERO" th:src="@{/img/tours.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>TOURS</h4>
+					<p>Amplia variedad de tours a muchos destinos del mundo que te dejaran con ganas de volver.</p>
+					<button type="button" class="btn btn-success" data-mdb-ripple-init style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="CRUCERO" th:src="@{/img/excursiones.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>EXCURSIONES</h4>
+					<p>Vive la aventura como nunca con nuestras excursiones a lugares increíbles y al mejor precio.</p>
+					<button type="button" class="btn btn-warning" data-mdb-ripple-init  style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- SECCION 2 -->
+<section>
+	<div class="container">	
+		<div class="row">
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="VIAJES A EUROPA" th:src="@{/img/viajes-europa.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>VIAJES A EUROPA</h4>
+					<p>Te llevamos a conocer las ciudades más emblemáticas de toda Europa.</p>
+					<button type="button" class="btn btn-success" data-mdb-ripple-init style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="VARIOS DESTINOS" th:src="@{/img/brujula.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>VARIOS DESTINOS</h4>
+					<p>Contamos con una variedad enorme de destinos que se adaptan a lo que desees.</p>
+					<button type="button" class="btn btn-danger" data-mdb-ripple-init style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+			<div class="col d-flex p-4">
+				<div class="col-md-3">
+					<img alt="RELAJACIÓN" th:src="@{/img/relax.png}" width="60%">
+				</div>
+				<div class="col-md-9">
+					<h4>RELAJACIÓN</h4>
+					<p>Relájate con nuestros viajes de lujo y disfruta de beneficios adicionales en spas y resort.</p>
+					<button type="button" class="btn btn-info" data-mdb-ripple-init  style="border-radius: 18px">VER TODOS</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Espacio entre secciones -->
+<section class="bg-image" style="background-image: url('/img/cabaña.jpeg'); height: 650px; z-index: -1; margin-top: 40px; padding: 100px 0px">
+	<div class="row d-flex justify-content-center">
+		<div class="col-md-4" style="z-index: 1; display: flex; align-items: center; background-color: black;">
+    		<div style="width: 100%; padding: 10px;">
+        		<div class="col-12 mb-3">
+            		<h3 class="text-white display-6" style="font-weight: bolder;">El mundo en tus manos</h3>
+        		</div>
+        		<div class="col-12 mb-5">
+            		<p class="text-white h6" style="line-height: 1.7; list-style-position: inside; text-align: justify;">En nuestra agencia de viajes nos caracterizamos por ser confiables y siempre brindarte una experiencia 
+            		inolvidable desde que ingresas por nuestra puerta hasta que finalizas satisfactoriamente tu viaje contando en todo momento con 
+            		asesoría y el respaldo que solo Pangea Perú - Agencia de viajes puede brindarte.</p>
+        		</div>
+        		<div class="col-12 ">
+            		<button style="border-radius: 18px; color: black; font-weight: bolder; font-size: 14px" type="button" class="btn btn-warning" data-mdb-ripple-init>QUIERO SER PARTE DE PANGEA PERÚ</button>
+        		</div>
+    		</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="row p-3">
+				<div class="col-6">
+					<img alt="pareja" th:src="@{/img/pareja.jpeg}" width="100%">
+				</div>
+				<div class="col-6">
+					<img alt="familia" th:src="@{/img/familia.jpeg}" width="100%">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<a href="https://api.whatsapp.com/send?phone=51949927973&text=Hola%20soy%20soci%40%20de%20Pangea%2C%20quiero%20realizar%20una%20reserva." class="whatsapp-icon" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+<!--------------------------->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+</script>
+
+
+</body>
+
+<footer>
+    <section class="mb-5" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px">
+        <div class="container">
+            <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px">
+                <div class="col-md-6">
+                    <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px">
+                    <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                </div>
+                <div class="col-md-6">
+                	<h3 style="color:black; text-align: center"><b>¡Visítanos!</b></h3>
+                   	<img alt="mapa" th:src="@{/img/mapa.png}">
+                </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+		    <img alt="pie" th:src="@{/img/pie.png}">
+			</div>
+        </div>
+        </div>
+    </section>
+    <div> <p style="color:black; text-align: center"> Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe </p></div>
+</footer>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+    <link th:href="@{/templates/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    	 body {
+        background-image: url('/img/fondoPagos2.jpg');
+        background-size: cover; /* Ajustar la imagen al tamaño completo */
+        background-position: center; /* Centrar la imagen */
+        background-repeat: no-repeat; /* Evitar que la imagen se repita */
+    }
+    .container{
+    	color: white;
+    	font-weight: bolder;
+    }
+    
+        .navbar-nav .nav-item:hover .nav-link {
+            color: rgb(34, 233, 239) !important;
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar-nav li {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .navbar-custom {
+            background-color: black;
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .custom-button:last-child {
+            margin-right: 10px;
+        }
+
+        .star-rating {
+            color: #ffbb00;
+        }
+
+        .star-rating .fa-star {
+            margin-right: 5px;
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            width: 100px;
+        }
+
+        .footer-section {
+            margin-top: 50px;
+        }
+        .table {
+        	color:white;
+        	font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 105px;position: relative;">
+  <div class="container-fluid" style="width: 50%;">
+  	<!-- Container LOGO -->
+    <div>
+    	<a href="#">
+    		<img alt="logo-pangea" th:src="@{/img/logoPangea.png}"
+          	height="80">
+    	</a>
+    </div>
+    <!--------------------------------->
+    <!-- CONTENEDOR RESTANTE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/inicioLogueado}">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/nosotrosLogueado}">NOSOTROS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/paquetes/listarPromocionesLogueado}">PROMOCIONES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/contactoLogueado}">CONTACTO</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/cartLogueado}">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" th:text="${cart != null ? cart.size() : 0}"></span> <!-- Mostrar el número de elementos en el carrito -->
+          </a>
+        </li>
+           <!-- Mostrar nombre de usuario y cerrar sesión solo si está autenticado -->
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                    <span class="nav-link text-white">Bienvenido, <span sec:authentication="principal.username"></span>!</span> 
+               </li>
+               <li sec:authorize="isAuthenticated()" class="nav-item"> 
+                 <a class="nav-link text-white" th:href="@{/logout}">Cerrar sesión</a> 
+                </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Carrito -->
+    <div class="container mt-5">
+        <h2 class="mb-4" style="text-align: center;"><b>Tu Carrito</b></h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Aquí se agregarán los elementos del carrito dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+            <h4>Total: $<span id="total-price">0.00</span></h4>
+        </div>
+        <div class="d-flex justify-content-end mt-3 mb-5">
+            <a href="/pangea/checkout" class="btn btn-primary">Proceder al Pago</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCart();
+            updateCartCount();
+
+            function updateCart() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                let totalPrice = 0;
+
+                cart.forEach((paquete, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${paquete.imagen}" alt="${paquete.nombre}"></td>
+                        <td>${paquete.nombre}</td>
+                        <td>${paquete.precio}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm remove-item" data-index="${index}">Eliminar</button>
+                        </td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                    totalPrice += parseFloat(paquete.precio.replace('Precio: ', ''));
+                });
+
+                document.getElementById('total-price').innerText = totalPrice.toFixed(2);
+
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const index = button.getAttribute('data-index');
+                        removeFromCart(index);
+                    });
+                });
+            }
+
+            function updateCartCount() {
+                document.getElementById('cart-count').innerText = cart.length;
+            }
+
+            function removeFromCart(index) {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCart();
+                updateCartCount();
+            }
+        });
+    </script>
+
+    <footer>
+        <section class="footer-section" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px;">
+            <div class="container">
+                <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px;">
+                    <div class="col-md-6">
+                        <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px;">
+                        <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 style="color:black; text-align: center;"><b>¡Visítanos!</b></h3>
+                        <img alt="mapa" th:src="@{/img/mapa.png}">
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img alt="pie" th:src="@{/img/pie.png}">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div>
+            <p style="color:white; text-align: center;">Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe</p>
+        </div>
+    </footer>
+</body>
+</html>

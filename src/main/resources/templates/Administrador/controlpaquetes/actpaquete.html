@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"> 
+                <img src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-2-1.png" alt="pangea">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Javier Martinez </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/edit}">Editar Perfil</a>
+                            <a class="dropdown-item" href="#">Cambiar Contraseña</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/login}">Desconectar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- toda la caja de la vista Panel lateral -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <div class="sidebar-sticky">
+                    <div class="dashboard-navigation">
+                        <!-- menu responsive -->
+                        <div id="dashboard-Navigation" class="slick-nav"></div>
+                        <div id="navigation" class="navigation-container">
+                            <ul class="nav flex-column">
+                                <li class="nav-item active-menu">
+                                    <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-user"></i>Usuarios</a>
+                                    <ul id="auth" class="nav flex-column ml-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/usuarios}">Ver usuarios</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/edit}">Editar usuarios</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/add}">Crear usuarios</a>
+                                        </li>
+                                    </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/addpaquete}">Añadir paquete</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#"><i class="fas fa-box-archive"></i> Paquetes</a>
+                                    <ul class="nav flex-column ml-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/activo}">Activos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/pendiente}">Pendientes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" th:href="@{/expirado}">Expirados</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/login}">Salir</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Contenido principal -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="db-info-wrap db-package-wrap">
+                    <div class="dashboard-box table-opp-color-box">
+                        <h4>Lista de paquetes activos</h4>
+                        <p>En esta lista encontrarás el total de paquetes activos</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Precio Oferta</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="paquete : ${paquetes}">
+                                        <td th:text="${paquete.nombre}">Nombre del Paquete</td>
+                                        <td th:text="${paquete.descripcion}">Descripción del Paquete</td>
+                                        <td th:text="${paquete.precioOferta}">Precio del Paquete</td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm" data-toggle="modal" th:data-target="#editarModal" th:data-id="${paquete.id}" th:data-nombre="${paquete.nombre}" th:data-descripcion="${paquete.descripcion}" th:data-preciooferta="${paquete.precioOferta}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <a th:href="@{/paquetes/eliminar/{id}(id=${paquete.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este paquete?');">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- paginación NOTA: FALTA CONFIGURAR -->
+                    <div class="pagination-wrap">
+                        <nav class="pagination-inner">
+                            <ul class="pagination disabled">
+                                <li class="page-item">
+                                    <span class="page-link"><i class="fas fa-chevron-left"></i></span>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link active">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal de edición -->
+    <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarModalLabel">Editar Paquete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/paquetes/editar}" method="post" id="editForm">
+                        <input type="hidden" id="editId" name="id">
+                        <div class="form-group">
+                            <label for="editNombre">Nombre</label>
+                            <input type="text" class="form-control" id="editNombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescripcion">Descripción</label>
+                            <textarea class="form-control" id="editDescripcion" name="descripcion" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPrecioOferta">Precio Oferta</label>
+                            <input type="number" step="0.01" class="form-control" id="editPrecioOferta" name="precioOferta" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <script>
+        $('#editarModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var descripcion = button.data('descripcion');
+            var precioOferta = button.data('preciooferta');
+
+            var modal = $(this);
+            modal.find('#editId').val(id);
+            modal.find('#editNombre').val(nombre);
+            modal.find('#editDescripcion').val(descripcion);
+            modal.find('#editPrecioOferta').val(precioOferta);
+        });
+
+        $('#editForm').on('submit', function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+            var formData = $(this).serialize();
+
+            $.post($(this).attr('action'), formData, function(response) {
+                // Lógica para manejar la respuesta del servidor
+                $('#editarModal').modal('hide');
+                location.reload(); // Recarga la página para reflejar los cambios
+            }).fail(function() {
+                alert('Error al actualizar el paquete.');
+            });
+        });
+    </script>
+</body>
+</html>
+

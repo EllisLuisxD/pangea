@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-2-1.png" alt="pangea">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Javier Martinez
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/edit}">Editar Perfil</a>
+                            <a class="dropdown-item" href="#">Cambiar Contraseña</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/login}">Desconectar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+                <div class="sidebar-sticky">
+                    <div class="dashboard-navigation">
+                        <!-- menu responsive -->
+                        <div id="dashboard-Navigation" class="slick-nav"></div>
+                        <div id="navigation" class="navigation-container">
+                            <ul class="nav flex-column">
+                                <li class="nav-item active-menu"><a class="nav-link" th:href="@{/dashboard}">Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user"></i>Usuarios</a>
+                                    <ul id="auth" class="nav flex-column ml-3">
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Ver usuarios</a></li>
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/edit}">Editar usuarios</a></li>
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/add}">Crear usuarios</a></li>
+                                    </ul>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/paquetes/add}">Añadir paquete</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-box-archive"></i> Paquetes</a>
+                                    <ul class="nav flex-column ml-3">
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/activo}">Activos</a></li>
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/pendiente}">Pendientes</a></li>
+                                        <li class="nav-item"><a class="nav-link" th:href="@{/expirado}">Expirados</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Salir</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="db-info-wrap db-add-tour-wrap">
+                    <div class="row">
+                        <div class="col-lg-8 col-xl-9">
+                            <div class="dashboard-box">
+                                <form th:action="@{/paquetes/add}" method="post" enctype="multipart/form-data">
+                                    <div class="custom-field-wrap">
+                                        <h4>Información general</h4>
+                                        <div class="form-group">
+                                            <label>Titulo</label>
+                                            <input type="text" name="nombre" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Descripción</label>
+                                            <textarea name="descripcion" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-box">
+                                        <div class="custom-field-wrap">
+                                            <h4>Fecha y Precio</h4>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Cantidad de Personas</label>
+                                                        <input type="number" name="cantidadPersonas" placeholder="Nro. Pasajeros">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>Duración del viaje</label>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <input type="number" name="duracionDias" placeholder="Días">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <input type="number" name="duracionNoches" placeholder="Noches">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Categoria</label>
+                                                        <select name="categoria">
+                                                            <option>Adultos</option>
+                                                            <option>Niños</option>
+                                                            <option>Pareja</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Precio oferta</label>
+                                                        <input type="text" name="precioOferta" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label>Precio Regular</label>
+                                                        <input type="text" name="precioRegular">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <label>Descuento</label>
+                                                        <input type="text" name="descuento">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>Fecha de Vencimiento</label> 
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <select id="dia" class="form-control" name="diaVencimiento">
+                                                                        <!-- Opciones de día -->
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <select id="meses" class="form-control" name="mesVencimiento">
+                                                                        <!-- Opciones de mes -->
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <input type="text" name="anioVencimiento" placeholder="Año">
+                                                                </div>
+                                                            </div>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-box">
+                                        <h4>Imagen de la Promoción</h4>
+                                        <div class="custom-field-wrap">
+                                            <div class="dragable-field">
+                                                <div class="dragable-field-inner">
+                                                    <p class="drag-drop-info">Soltar archivos para cargar</p>
+                                                    <p>or</p>
+                                                    <div class="upload-input">
+                                                        <div class="form-group">
+                                                            <span class="upload-btn">Cargar una imagen</span>
+                                                            <input type="file" name="imagen">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-box">
+                                        <h4>Mapa Destino</h4>
+                                        <div class="custom-field-wrap">
+                                            <div class="form-group">
+                                                <label>Código embebido de Google Maps</label>
+                                                <textarea name="codigoEmbebido" placeholder="Pega aquí el código embebido de Google Maps"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-box">
+                                        <div class="custom-field-wrap">
+                                            <h4>Publicar</h4>
+                                            <div class="publish-btn">
+                                                <div class="form-group">
+                                                    <input type="submit" name="draft" value="Guardar Borrador">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" name="preview" value="Preview">
+                                                </div>
+                                            </div>
+                                            <div class="publish-status">
+                                                <span>
+                                                    <strong>Estado:</strong>
+                                                    Borrador
+                                                </span>
+                                                <a href="#">Editar</a>
+                                            </div>
+                                            <div class="publish-status">
+                                                <span>
+                                                    <strong>Visibilidad:</strong>
+                                                    Pública
+                                                </span>
+                                                <a href="#">Editar</a>
+                                            </div>
+                                            <div class="publish-action">
+                                                <input type="submit" name="publish" value="Publicar">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="dashboard-box">
+                                <div class="custom-field-wrap db-pop-field-wrap">
+                                    <h4>Categoría</h4>
+                                    <div class="form-group">
+                                        <label class="custom-input"><input type="checkbox">
+                                            <span class="custom-input-field"></span>
+                                            Viajes
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="custom-field-wrap db-pop-field-wrap">
+                                    <h4>Palabras Clave</h4>
+                                    <div class="form-group">
+                                        <input type="text" name="keyword" placeholder="Keywords">
+                                    </div>
+                                </div>
+                                <div class="custom-field-wrap db-cat-field-wrap">
+                                    <h4>Categoría</h4>
+                                    <div class="form-group">
+                                        <label class="custom-input"><input type="checkbox">
+                                            <span class="custom-input-field"></span>
+                                            Hotel
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="custom-input"><input type="checkbox" checked="checked">
+                                            <span class="custom-input-field"></span>
+                                            Viaje
+                                        </label>
+                                    </div>
+                                    <div class="add-btn">
+                                        <a href="#">Agregar Categoría </a>
+                                    </div>
+                                </div>
+                                <div class="custom-field-wrap db-media-field-wrap">
+                                    <h4>Agregar miniatura</h4>
+                                    <div class="upload-input">
+                                        <div class="form-group">
+                                            <span class="upload-btn">Subir Imagen</span>
+                                            <input type="file" name="miniatura">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/mdbootstrap/js/mdb.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>
+
+
+

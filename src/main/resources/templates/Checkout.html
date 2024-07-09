@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/templates/style.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    /* Estilo personalizado para cambiar el color del texto al pasar el mouse */
+    .navbar-nav .nav-item:hover .nav-link {
+        color: rgb(34,233,239) !important;
+    }
+
+    .navbar-nav {
+        display: flex;
+        justify-content: flex-end; /* Alinear los elementos al final del contenedor */
+    }
+
+    .navbar-nav li {
+        margin-left: 10px; /* Espacio entre elementos */
+        margin-right: 10px; /* Reducir el margen derecho */
+    }
+</style>
+<body>
+<!-- DIV PARA LA IMAGEN DE FONDO DE PLAYA -->
+<div style="z-index: -100;width: 100%;height: 630px;">
+    <!-- CONTENEDOR TEXTO PARA IMAGEN DE FONDO -->
+    <img alt="playa" th:src="@{/img/playa2.jpg}" height="630px" width="100%" style="position: absolute">
+    
+<!--------------------------------------------->
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 105px;position: relative;">
+  <div class="container-fluid" style="width: 50%;">
+    <!-- Container LOGO -->
+    <div>
+        <a href="#">
+            <img alt="logo-pangea" th:src="@{/img/logoPangea.png}"
+            height="80">
+        </a>
+    </div>
+    <!--------------------------------->
+    <!-- CONTENEDOR RESTANTE -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="width: 1080px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: bold; font-size: 18px; white-space: nowrap;">
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/}">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/nosotrosLogueado}">NOSOTROS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/paquetes/listarPromocionesLogueado}">PROMOCIONES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" th:href="@{/contactoLogueado}">CONTACTO</a>
+        </li>
+        						<li sec:authorize="isAuthenticated()" class="nav-item"><span
+							class="nav-link text-white">Bienvenido, <span
+								sec:authentication="principal.username"></span>!
+						</span></li>
+						<li sec:authorize="isAuthenticated()" class="nav-item"><a
+							class="nav-link text-white" th:href="@{/logout}">Cerrar
+								sesión</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+    
+<!-- Espacio entre secciones -->
+<section class="mb-5"></section>
+<section>
+<div class="container mt-5">
+    <h2>Formulario de Checkout</h2>
+    <div class="row">
+        <!-- Formulario de Checkout -->
+        <div class="col-md-6">
+            <form class="login-from" th:action="@{/pangea/tarjeta}" th:object="${numTarjeta}" method="post">
+                <!-- Información personal -->
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" th:field="*{nombres}" placeholder="Ingrese sus nombres completos" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" th:field="*{apellidos}" placeholder="Ingrese sus apellidos completos" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" th:field="*{correo}" placeholder="you@example.com" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" th:field="*{direccion}" placeholder="Calle, número, piso" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address2" class="form-label">Dirección 2 (Opcional)</label>
+                    <input type="text" class="form-control" id="direccion2" name="direccion2" th:field="*{direccion2}" placeholder="Apartamento o suite">
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label for="country" class="form-label">País</label>
+                        <input class="form-control" id="pais" name="pais" th:field="*{pais}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="state" class="form-label">Provincia/Estado</label>
+                        <input class="form-control" id="provincia" name="provincia" th:field="*{provincia}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cod" class="form-label">Código Postal</label>
+                        <input type="text" class="form-control" id="codPostal" name="codPostal" th:field="*{codPostal}" placeholder="" required>
+                    </div>
+                </div>
+
+                <!-- Información de pago -->
+                <h4 class="mt-4">Método de Pago</h4>
+                <div class="my-3">
+                    <input class="form-control" id="metPago" name="metPago" th:field="*{metPago}" required>
+                </div>
+
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label for="cc-name" class="form-label">Nombre en la tarjeta</label>
+                        <input type="text" class="form-control" id="nombreTarjeta" name="nombreTarjeta" th:field="*{nombreTarjeta}" placeholder="" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cc-number" class="form-label">Número de tarjeta</label>
+                        <input type="text" class="form-control" id="numTarjeta" name="numTarjeta" th:field="*{numTarjeta}" placeholder="" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cc-expiration" class="form-label">Vencimiento</label>
+                        <input type="text" class="validate" id="fechaVencimiento" name="fechaVencimiento" th:field="*{fechaVencimiento}" placeholder="" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="cc-cvv" class="form-label">CVV</label>
+                        <input type="text" class="validate" id="cvv" name="cvv" th:field="*{cvv}" placeholder="" required>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Completar compra</button>
+            </form>
+        </div>
+        <!-- Productos del Carrito -->
+        <div class="col-md-6">
+            <div class="container mt-5">
+                <h2 class="mb-4" style="text-align: center;"><b>Detalle de compra</b></h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <!-- Aquí se agregarán los elementos del carrito dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                    <h4>Total a Pagar: $<span id="total-price">0.00</span></h4>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                    <a th:href="@{/listarPromocionesLogueado}"><h4 style="font-size: 14px">Se te olvidó algún paquete? Click aquí</h4></a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- Espacio entre secciones -->
+<section class="mb-5"></section>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCartCount();
+
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+});
+
+document.getElementById("formulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+    var formData = new FormData(this);
+
+    fetch("/pangea/submitFormulario", { // Corregir la ruta del formulario
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+        throw new Error('Error en la solicitud.');
+    })
+    .then(data => {
+        document.getElementById("mensaje-exito").innerText = data;
+        document.getElementById("mensaje-exito").style.display = "block";
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
+    
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    updateCart();
+    updateCartCount();
+
+    function updateCart() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+        let totalPrice = 0;
+
+        cart.forEach((paquete, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><img src="${paquete.imagen}" alt="${paquete.nombre}" style="width: 50px; height: 50px;"></td>
+                <td>${paquete.nombre}</td>
+                <td>${paquete.precio}</td>
+            `;
+            cartItemsContainer.appendChild(row);
+            totalPrice += parseFloat(paquete.precio.replace('Precio: ', ''));
+        });
+
+        document.getElementById('total-price').innerText = totalPrice.toFixed(2);
+
+    }
+
+    function updateCartCount() {
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+        updateCartCount();
+    }
+});
+</script>
+
+</body>
+<footer>
+    <section class="mb-5" style="background-image: url('/img/fondoFooter.jpg'); padding: 50px">
+        <div class="container">
+            <div class="row" style="background-color: white; padding-top: 50px; padding-bottom: 0px">
+                <div class="col-md-6">
+                    <img alt="Pangea" th:src="@{/img/logonegro.png}" style="width: 90px; height: 90px">
+                    <p style="text-align: justify;">Nuestra agencia de viajes - Pangea Perú es confiable y nace en el año 2015 con un grupo de estudiantes de turismo a través de una iniciativa que busca replicar los mecanismos de viajes que se emplean en Norteamérica y Europa, motivando a realizar todo tipo de travesías mediante incentivos únicos que logran materializar cada viaje que se tiene pensado.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3 style="color:black; text-align: center"><b>¡Visítanos!</b></h3>
+                    <img alt="mapa" th:src="@{/img/mapa.png}">
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <img alt="pie" th:src="@{/img/pie.png}">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div> 
+        <p style="color:black; text-align: center"> Todos los Derechos Reservados: Copyright Pangea / reservas@pangea.com.pe </p>
+    </div>
+</footer>
+</html>
+

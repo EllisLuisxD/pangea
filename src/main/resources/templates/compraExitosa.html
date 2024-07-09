@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="3,http://localhost:8081/pangea/inicio">
+<!-- <title th:text="${item.titlePage}"></title> -->
+<link th:href="@{/mdbootstrap/css/mdb.min.css}" rel="stylesheet">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="login-page" style="background-image: url(/img/fondoFooter.jpg);">
+    <div class="login-from-wrap p-3">
+        <form class="login-from">
+            <h1 class="site-title">
+                <a href="#">
+                    <img  src="https://pangea.com.pe/wp-content/uploads/2021/12/Recurso-1.png" alt="logo-pangea">
+                </a>
+            </h1>
+            <div class="form-group mt-4 d-flex justify-content-center">
+                <img alt="enviadoExito" th:src="@{/img/compra-finalizada.jpg}" width="50%">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+  
+<script type="text/javascript" th:src="@{../mdbootstrap/js/mdb.min.js}"></script>
+</body>
+
+</html>
